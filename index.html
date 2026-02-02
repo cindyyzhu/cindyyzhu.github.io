@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cindy Zhu | Developer</title>
+
+  <meta name="description" content="Cindy Zhu - Software Developer Portfolio" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Inter", sans-serif;
+    }
+
+    body {
+      background: #0f172a;
+      color: #e5e7eb;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #38bdf8;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: auto;
+      padding: 2rem 1.5rem;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      font-weight: 700;
+    }
+
+    header p {
+      color: #94a3b8;
+      margin-top: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .links {
+      margin-top: 1.5rem;
+    }
+
+    .links a {
+      margin: 0 10px;
+      font-weight: 600;
+    }
+
+    section {
+      margin-bottom: 3.5rem;
+    }
+
+    section h2 {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #1e293b;
+      padding-bottom: 0.3rem;
+    }
+
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: #020617;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid #1e293b;
+      transition: transform 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+    }
+
+    .card p {
+      color: #cbd5f5;
+      font-size: 0.95rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 0;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      border-top: 1px solid #1e293b;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <!-- Header -->
+    <header>
+      <h1>Cindy Zhu</h1>
+      <p>Software Developer · Engineering Science @ UofT</p>
+
+      <div class="links">
+        <a href="https://github.com/cindyyzhu" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/cindyyzhu" target="_blank">LinkedIn</a>
+        <a href="https://devpost.com/cindyyzhu" target="_blank">Devpost</a>
+        <a href="mailto:cindyzhu8207@gmail.com">Email</a>
+      </div>
+    </header>
+
+    <!-- About -->
+    <section>
+      <h2>About Me</h2>
+      <p>
+        Hi! I'm Cindy, a software developer who enjoys building full-stack
+        applications, interactive systems, and data-driven tools. I love
+        learning by building and experimenting with new technologies.
+      </p>
+    </section>
+
+    <!-- Projects -->
+    <section>
+      <h2>Projects</h2>
+
+      <div class="projects">
+
+        <div class="card">
+          <h3>Wattson</h3>
+          <p>Interactive robotic desk lamp with React and Raspberry Pi.</p>
+          <a href="https://github.com/cindyyzhu/wattson" target="_blank">
+            View on GitHub →
+          </a>
+        </div>
+
+        <div class="card">
+          <h3>FederaTea</h3>
+          <p>Underwriting analytics dashboard built with React & Python.</p>
+          <a href="https://github.com/cindyyzhu/htn2025-federatea" target="_blank">
+            View on GitHub →
+          </a>
+        </div>
+
+        <div class="card">
+          <h3>Sharity</h3>
+          <p>Community resource platform using Next.js and Node.js.</p>
+          <a href="https://github.com/TonyTran03/Sharity" target="_blank">
+            View on GitHub →
+          </a>
+        </div>
+
+        <div class="card">
+          <h3>Boujee Bear</h3>
+          <p>Speech therapy app with FastAPI and TTS integration.</p>
+          <a href="https://github.com/cindyyzhu/BoujeeBear-HTV8" target="_blank">
+            View on GitHub →
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section>
+      <h2>Contact</h2>
+      <p>
+        Interested in collaborating or chatting?  
+        Feel free to reach out via email or LinkedIn!
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      © 2026 Cindy Zhu · Built with HTML & CSS · Hosted on GitHub Pages
+    </footer>
+
+  </div>
+
+</body>
+</html>
