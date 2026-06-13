@@ -3,9 +3,10 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: rgba(10, 15, 30, 0.85);
+  background: var(--nav-bg);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border);
+  transition: background 0.2s, border-color 0.2s;
 }
 
 .navInner {
@@ -25,6 +26,12 @@
   letter-spacing: -0.01em;
 }
 
+.navRight {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
 .navLinks {
   display: flex;
   gap: 1.75rem;
@@ -40,6 +47,24 @@
 .navLinks a:hover {
   color: var(--text);
   text-decoration: none;
+}
+
+.themeToggle {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--muted);
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s, border-color 0.15s;
+}
+
+.themeToggle:hover {
+  color: var(--text);
+  border-color: var(--text);
 }
 
 /* Container */
@@ -72,7 +97,7 @@
   font-size: clamp(2.5rem, 6vw, 4rem);
   font-weight: 700;
   letter-spacing: -0.03em;
-  background: linear-gradient(135deg, #e2e8f0 30%, #38bdf8 100%);
+  background: linear-gradient(135deg, var(--text) 30%, var(--accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -88,7 +113,7 @@
   margin-top: 2rem;
   display: flex;
   justify-content: center;
-  gap: 1.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
@@ -159,17 +184,17 @@
 .filterBtnActive {
   background: var(--accent);
   border-color: var(--accent);
-  color: #0a0f1e;
+  color: #fff;
 }
 
 .filterBtnActive:hover {
-  color: #0a0f1e;
+  color: #fff;
 }
 
 /* Grid */
 .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
   gap: 1.25rem;
 }
 
@@ -178,17 +203,53 @@
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 12px;
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 .card:hover {
   transform: translateY(-3px);
-  border-color: #2d3f5a;
-  background: var(--bg-card-hover);
+  border-color: var(--accent2);
+  box-shadow: 0 8px 32px rgba(129, 140, 248, 0.12);
+}
+
+/* Preview image */
+.cardPreview {
+  width: 100%;
+  height: 170px;
+  overflow: hidden;
+  background: var(--tag-bg);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.previewImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: transform 0.35s ease;
+}
+
+.card:hover .previewImg {
+  transform: scale(1.03);
+}
+
+.previewPlaceholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--tag-bg) 0%, var(--bg-card-hover) 100%);
+}
+
+.placeholderText {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--accent2);
+  opacity: 0.5;
 }
 
 .cardBody {
@@ -196,6 +257,7 @@
   display: flex;
   flex-direction: column;
   gap: 0.6rem;
+  padding: 1.25rem;
 }
 
 .cardTitle {
@@ -206,7 +268,7 @@
 
 .cardDesc {
   color: var(--muted);
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   line-height: 1.65;
 }
 
@@ -220,7 +282,7 @@
 .tag {
   background: var(--tag-bg);
   color: var(--accent2);
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 500;
   padding: 0.2rem 0.55rem;
   border-radius: 4px;
@@ -231,6 +293,7 @@
   display: flex;
   gap: 0.6rem;
   flex-wrap: wrap;
+  padding: 0 1.25rem 1.25rem;
 }
 
 .linkBtn, .linkBtnSecondary {
@@ -239,6 +302,8 @@
   padding: 0.35rem 0.8rem;
   border-radius: 6px;
   transition: opacity 0.15s;
+  border: none;
+  display: inline-block;
 }
 
 .linkBtn:hover, .linkBtnSecondary:hover {
@@ -248,13 +313,15 @@
 
 .linkBtn {
   background: var(--accent);
-  color: #0a0f1e;
+  color: #fff;
+  cursor: pointer;
 }
 
 .linkBtnSecondary {
   background: var(--tag-bg);
   color: var(--text);
   border: 1px solid var(--border);
+  cursor: pointer;
 }
 
 /* Footer */

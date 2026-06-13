@@ -14,6 +14,22 @@
   --accent: #38bdf8;
   --accent2: #818cf8;
   --tag-bg: #1e293b;
+  --nav-bg: rgba(10, 15, 30, 0.85);
+  --shadow: 0 4px 24px rgba(0,0,0,0.4);
+}
+
+[data-theme="light"] {
+  --bg: #f8fafc;
+  --bg-card: #ffffff;
+  --bg-card-hover: #f1f5f9;
+  --border: #e2e8f0;
+  --text: #0f172a;
+  --muted: #64748b;
+  --accent: #0284c7;
+  --accent2: #6366f1;
+  --tag-bg: #e0f2fe;
+  --nav-bg: rgba(248, 250, 252, 0.85);
+  --shadow: 0 4px 24px rgba(0,0,0,0.08);
 }
 
 html {
@@ -26,6 +42,7 @@ body {
   font-family: 'Inter', sans-serif;
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
+  transition: background 0.2s, color 0.2s;
 }
 
 a {

@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import Modal from './components/Modal.jsx'
 import styles from './App.module.css'
 
 const PROJECTS = [
@@ -40,8 +41,8 @@ const PROJECTS = [
     githubUrl: 'https://github.com/cindyyzhu/BoujeeBear-HTV8',
   },
   {
-    title: "What A Storm!",
-    description: "Choose-your-own-adventure game set in a desert survival scenario, with a branching narrative and lives system, built in Python.",
+    title: 'What A Storm!',
+    description: 'Choose-your-own-adventure game set in a desert survival scenario, with a branching narrative and lives system, built in Python.',
     tags: ['Game', 'Python'],
     liveUrl: 'https://what-a-storm-python.vercel.app/scene',
   },
@@ -77,15 +78,37 @@ const PROJECTS = [
   },
 ]
 
-const FILTERS = ['All', 'Hackathon', 'Game', 'Hardware', 'Web App', 'Education', 'Creative']
+function previewUrl(url) {
+  if (!url) return null
+  return `https://image.thum.io/get/width/600/crop/400/noanimate/${url}`
+}
+
+const FILTERS = ['All', 'Hackathon', 'Game', 'Hardware', 'Web App', 'Education', 'Creative', 'Awareness']
 
 function Tag({ label }) {
   return <span className={styles.tag}>{label}</span>
 }
 
-function ProjectCard({ project }) {
+function ProjectCard({ project, onDemo }) {
+  const thumb = previewUrl(project.liveUrl || project.githubUrl)
+  const [imgError, setImgError] = useState(false)
+
   return (
     <div className={styles.card}>
+      {thumb && !imgError ? (
+        <div className={styles.cardPreview}>
+          <img
+            src={thumb}
+            alt={`${project.title} preview`}
+            className={styles.previewImg}
+            onError={() => setImgError(true)}
+          />
+        </div>
+      ) : (
+        <div className={`${styles.cardPreview} ${styles.previewPlaceholder}`}>
+          <span className={styles.placeholderText}>{project.title[0]}</span>
+        </div>
+      )}
       <div className={styles.cardBody}>
         <h3 className={styles.cardTitle}>{project.title}</h3>
         <p className={styles.cardDesc}>{project.description}</p>
@@ -95,14 +118,14 @@ function ProjectCard({ project }) {
       </div>
       <div className={styles.cardLinks}>
         {project.liveUrl && (
-          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={styles.linkBtn}>
+          <button className={styles.linkBtn} onClick={() => onDemo(project)}>
             Live Demo ↗
-          </a>
+          </button>
         )}
         {project.mobileUrl && (
-          <a href={project.mobileUrl} target="_blank" rel="noopener noreferrer" className={styles.linkBtnSecondary}>
+          <button className={styles.linkBtnSecondary} onClick={() => onDemo({ ...project, liveUrl: project.mobileUrl, title: project.title + ' (Mobile)' })}>
             Mobile ↗
-          </a>
+          </button>
         )}
         {project.githubUrl && (
           <a href={project.githubUrl} target="_blank" rel="noopener noreferrer" className={styles.linkBtnSecondary}>
@@ -114,8 +137,38 @@ function ProjectCard({ project }) {
   )
 }
 
+function SunIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+      <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+  )
+}
+
+function MoonIcon() {
+  return (
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+    </svg>
+  )
+}
+
 export default function App() {
   const [activeFilter, setActiveFilter] = useState('All')
+  const [modal, setModal] = useState(null)
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem('theme') || 'dark'
+  })
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme)
+    localStorage.setItem('theme', theme)
+  }, [theme])
+
+  const toggleTheme = () => setTheme(t => t === 'dark' ? 'light' : 'dark')
 
   const filtered = activeFilter === 'All'
     ? PROJECTS
@@ -126,16 +179,20 @@ export default function App() {
       <nav className={styles.nav}>
         <div className={styles.navInner}>
           <span className={styles.navLogo}>Cindy Zhu</span>
-          <div className={styles.navLinks}>
-            <a href="#about">About</a>
-            <a href="#projects">Projects</a>
-            <a href="#contact">Contact</a>
+          <div className={styles.navRight}>
+            <div className={styles.navLinks}>
+              <a href="#about">About</a>
+              <a href="#projects">Projects</a>
+              <a href="#contact">Contact</a>
+            </div>
+            <button className={styles.themeToggle} onClick={toggleTheme} aria-label="Toggle theme">
+              {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
+            </button>
           </div>
         </div>
       </nav>
 
       <main>
-        {/* Hero */}
         <section className={styles.hero}>
           <div className={styles.heroGlow} />
           <div className={styles.container}>
@@ -150,7 +207,6 @@ export default function App() {
           </div>
         </section>
 
-        {/* About */}
         <section id="about" className={styles.section}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>About Me</h2>
@@ -163,11 +219,9 @@ export default function App() {
           </div>
         </section>
 
-        {/* Projects */}
         <section id="projects" className={styles.section}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>Projects</h2>
-
             <div className={styles.filterRow}>
               {FILTERS.map(f => (
                 <button
@@ -179,14 +233,14 @@ export default function App() {
                 </button>
               ))}
             </div>
-
             <div className={styles.grid}>
-              {filtered.map(p => <ProjectCard key={p.title} project={p} />)}
+              {filtered.map(p => (
+                <ProjectCard key={p.title} project={p} onDemo={setModal} />
+              ))}
             </div>
           </div>
         </section>
 
-        {/* Contact */}
         <section id="contact" className={styles.section}>
           <div className={styles.container}>
             <h2 className={styles.sectionTitle}>Contact</h2>
@@ -201,9 +255,17 @@ export default function App() {
 
       <footer className={styles.footer}>
         <div className={styles.container}>
-          © 2026 Cindy Zhu · Built with Vite & React · Hosted on GitHub Pages
+          © 2026 Cindy Zhu · Built with Vite & React · Hosted on Vercel
         </div>
       </footer>
+
+      {modal && (
+        <Modal
+          url={modal.liveUrl}
+          title={modal.title}
+          onClose={() => setModal(null)}
+        />
+      )}
     </>
   )
 }
